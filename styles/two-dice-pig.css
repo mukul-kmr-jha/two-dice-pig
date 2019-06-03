@@ -124,12 +124,63 @@ button {
 }
 .dice-img-1{
   transform: translate(-53px) rotateZ(15deg);
+  display: none;
+  /*animation-iteration-count:infinite;*/
 }
 .dice-img-2{
   transform: translate(38px, -115px) rotateZ(-64deg);
+  display: none;
+  /*animation-iteration-count:infinite;*/
 }
 
-}
+
 .winner {
   color: red;
   background-color: #cec2c2; }
+
+/*Rolling Dice Animation */
+
+
+@keyframes rollDice1 {
+
+  0%{
+    transform:rotateZ(0deg);
+  }
+  20%{
+    transform:rotateZ(70deg);
+  }
+  40%{
+    transform:rotateZ(145deg);
+  }
+  60%{
+    transform:rotateZ(215deg);
+  }
+  80%{
+    transform:rotateZ(285deg);
+  }
+  100%{
+    transform: translate(-53px) rotateZ(355deg);
+  }
+}
+
+@keyframes rollDice2 {
+
+  0%{
+    transform:rotateZ(0deg);
+  }
+  20%{
+    transform:rotateZ(70deg);
+  }
+  40%{
+    transform:rotateZ(145deg);
+  }
+  60%{
+    transform:rotateZ(215deg);
+  }
+  80%{
+    transform:rotateZ(285deg);
+  }
+  100%{
+    transform: translate(38px) rotateZ(355deg);
+  }
+}

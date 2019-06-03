@@ -12,6 +12,10 @@ function init(){
   document.querySelector('.current-score--1').textContent="0";
   document.querySelector('.current-score--2').textContent="0";
 
+  document.querySelector('.dice-img-1').style.display="none";
+  document.querySelector('.dice-img-2').style.display="none";
+  document.querySelector('.window').style.boxShadow='0rem 1rem 2.5rem rgba(0, 0, 0, 0.7)';
+
   //remove the active class from players and set it to 1st player back again
   document.querySelector('.player--1').classList.remove('active-back');
   document.querySelector('#dot--1').classList.remove('active');
@@ -63,13 +67,28 @@ document.querySelector('.roll-dice').addEventListener('click',function(){
     console.log("dice1 : " + dice1);
     console.log("dice2 : " + dice2);
     //2. image of dice
-    document.querySelector('.dice-img').style.display="block";
+    document.querySelector('.dice-img-2').style.display="block";
+    document.querySelector('.dice-img-1').style.display="block";
+    //3. Rolling Dice Animation  
+    document.querySelector('.dice-img-2').style.animation="rollDice1 0.2s ease-in";
+    document.querySelector('.dice-img-1').style.animation="rollDice2 0.2s ease-in";
+    
+    //4. Restarting the Aniamtion
+    var elm1 = document.querySelector('.dice-img-1');
+    var newone1 = elm1.cloneNode(true);
+    elm1.parentNode.replaceChild(newone1, elm1);
+
+    var elm2 = document.querySelector('.dice-img-2');
+    var newone2 = elm2.cloneNode(true);
+    elm2.parentNode.replaceChild(newone2, elm2);
+
     document.querySelector('.dice-img-1').src="./images/dice-"+dice1+".png";
     document.querySelector('.dice-img-2').src="./images/dice-"+dice2+".png";
     //3. update the score
     if(dice1!==1 && dice2!==1)  //checking if dice is not 1 (player changing rule )
     {
          total+=dice1+dice2;
+         document.querySelector('.window').style.boxShadow='0rem 1rem 2.5rem rgba(0, 0, 0, 0.7)';
          if(total+scores[ activePlayer]>=100)
          {
              winnerFunction(total+scores[ activePlayer]);
@@ -78,18 +97,15 @@ document.querySelector('.roll-dice').addEventListener('click',function(){
     }
     else if(dice1!==1 || dice2!==1)  //checking if dice is not 1 (player changing rule )
     {
-      document.querySelector('.dice-img').style.display="block";
-      dice1 == 1 ? document.querySelector('.dice-img-1').src="./images/turnChanged"+activePlayer+".png":document.querySelector('.dice-img-2').src="./images/turnChanged"+activePlayer+".png";
       total=0;
       nextPlayer();
     }       
     else 
     {
-      document.querySelector('.dice-img').style.display="block";
-      document.querySelector('.dice-img').src="./images/turnChanged"+activePlayer+".png";
       total=0;
       scores[activePlayer] =0;
-        nextPlayer();
+      document.querySelector('.window').style.boxShadow='0 0 40px red';
+      nextPlayer();
     }
  }
 
@@ -107,8 +123,6 @@ document.querySelector('.hold').addEventListener('click',function(){
         winnerFunction(scores[activePlayer]);
     	}
    else{
-           document.querySelector('.dice-img').style.display="block";
-           document.querySelector('.dice-img').src="./images/turnChanged"+activePlayer+".png";
    	       nextPlayer();
        }
     total=0;
@@ -124,6 +138,8 @@ var winnerFunction=function(score)
   // document.querySelector(".current-score--"+activePlayer).textContent=0;  
   document.querySelector('#dot--'+activePlayer).classList.remove('active');
   document.querySelector('.dice-img-container').style.display="none";
+  document.querySelector('.window').style.boxShadow='0 0 40px green';
+
 
   isPlaying=0;
 
